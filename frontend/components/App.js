@@ -5,6 +5,7 @@ import LoginForm from './LoginForm'
 import Message from './Message'
 import ArticleForm from './ArticleForm'
 import Spinner from './Spinner'
+import axiosWithAuth from '../axios'
 
 const articlesUrl = 'http://localhost:9000/api/articles'
 const loginUrl = 'http://localhost:9000/api/login'
@@ -22,6 +23,8 @@ export default function App() {
   const redirectToArticles = () => { /* ✨ implement */ }
 
   const logout = () => {
+    window.localStorage.removeItem("token")
+    navigate("/")
     // ✨ implement
     // If a token is in local storage it should be removed,
     // and a message saying "Goodbye!" should be set in its proper state.
