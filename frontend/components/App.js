@@ -108,14 +108,32 @@ export default function App() {
       debugger
     })
 
-
-
-
   }
 
   const updateArticle = ({ article_id, article }) => {
     // ✨ implement
     // You got this!
+    setSpinnerOn(true)
+    axiosWithAuth().put(`${articlesUrl}/${article_id}`, {
+      title: article.title,
+      text: article.text,
+      topic: article.topic,
+    }).then(res => {
+        setArticles(articles.map(art => {
+          return art.article_id === article_id
+            ? res.data.article
+            : art
+        }))
+        setMessage(res.data.message)
+        setCurrentArticleId(null)
+      })
+      .catch(err => {
+        setMessage(err?.response?.data?.message)
+      })
+      .finally(() => {
+        setSpinnerOn(false)
+      })
+
   }
 
   const deleteArticle = article_id => {
@@ -125,8 +143,8 @@ export default function App() {
   return (
     // ✨ fix the JSX: `Spinner`, `Message`, `LoginForm`, `ArticleForm` and `Articles` expect props ❗
     <React.StrictMode>
-      <Spinner on = {spinnerOn}/>
-      <Message message = {message}/>
+      <Spinner on={spinnerOn}/>
+      <Message message= {message}/>
       <button id="logout" onClick={logout}>Logout from app</button>
       <div id="wrapper" style={{ opacity: spinnerOn ? "0.25" : "1" }}> {/* <-- do not change this line */}
         <h1>Advanced Web Applications</h1>
@@ -144,6 +162,7 @@ export default function App() {
               })}
               postArticle = {postArticle}
               setCurrentArticleId={setCurrentArticleId}
+              updateArticle = {updateArticle}
                 />
               <Articles 
               getArticles ={getArticles}
