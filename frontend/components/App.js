@@ -125,7 +125,7 @@ export default function App() {
             : art
         }))
         setMessage(res.data.message)
-        setCurrentArticleId(null)
+        setCurrentArticleId()
       })
       .catch(err => {
         setMessage(err?.response?.data?.message)
@@ -187,6 +187,7 @@ export default function App() {
               getArticles ={getArticles}
               articles = {articles}
               deleteArticle = {deleteArticle}
+              setCurrentArticleId={setCurrentArticleId}
               
               />
             </>
