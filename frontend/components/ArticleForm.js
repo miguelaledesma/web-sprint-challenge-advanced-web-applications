@@ -30,11 +30,25 @@ export default function ArticleForm(props) {
     // ✨ implement
     // We must submit a new post or update an existing one,
     // depending on the truthyness of the `currentArticle` prop.
+    if(article){
+      updateArticle({
+        article_id: article.article_id,
+        article: values,
+      })
+    } else {
+      postArticle(values)
+    }
+    setValues(initialFormValues)
   }
 
   const isDisabled = () => {
     // ✨ implement
     // Make sure the inputs have some values
+    if(values.title && values.text && values.topic){
+      return true
+    } else {
+      return false 
+    }
   }
 
   return (
@@ -64,7 +78,7 @@ export default function ArticleForm(props) {
       </select>
       <div className="button-group">
         <button disabled={isDisabled()} id="submitArticle">Submit</button>
-        <button onClick={Function.prototype}>Cancel edit</button>
+        <button onClick={() => setValues(initialFormValues)}>Cancel edit</button>
       </div>
     </form>
   )
