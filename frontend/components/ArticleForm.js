@@ -45,9 +45,9 @@ export default function ArticleForm(props) {
     // ✨ implement
     // Make sure the inputs have some values
     if(values.title && values.text && values.topic){
-      return true
+      return false
     } else {
-      return false 
+      return true 
     }
   }
 
